@@ -35,17 +35,22 @@ function App() {
     const savedNotes = JSON.parse(
       localStorage.getItem('react-notes-app-data')
     );
-
-    if(savedNotes){
+//check if retrevie any notes from local storage
+    if (savedNotes) {
       setNotes(savedNotes);
     }
-  },[])
+  }, [])
 
 
   //saving data in local storage
   useEffect(() => {
-    localStorage.setItem('react-notes-app-data', JSON.stringify(notes))
-  },[notes])
+    try {
+      localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
+    } catch (error) {
+      console.error('Error saving data to local storage:', error);
+    }
+  }, [notes]);
+
 
   const addNote = (text) => {
     // console.log(text);/
